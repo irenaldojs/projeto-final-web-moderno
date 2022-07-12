@@ -28,22 +28,18 @@ module.exports = app => {
     const remove = async (req, res) => {
         try {
             existsOrError(req.params.id, 'Código da categoria não informado.')
-            /*
+
             const subcategory = await app.db('categories')
                 .where({ parentId: req.params.id })
             notExistsOrError(subcategory, 'Categoria possui subcategorias.')
-            */
-            const subcategory = await app.db('categories')
-                .where({ parentId: req.params.id })
-            notExistsOrError(subcategory, 'Categoria possui subcategorias.')
-            
+
             const articles = await app.db('articles')
                 .where({ categoryId: req.params.id })
             notExistsOrError(articles, 'Categoria possui artigos.')
 
             const rowsDeleted = await app.db('categories')
                 .where({ id: req.params.id })
-            del()
+                .del()
             existsOrError(rowsDeleted, 'Categoria não foi encontrada.')
 
             res.status(204).send()
@@ -94,5 +90,22 @@ module.exports = app => {
             .catch(err => res.status(500).send(err))
     }
 
-    return { save, remove, get, getById }
+    const toTree = (categories, tree) => {
+        if (!tree) tree = categories.filter(c => !c.parentId)
+        tree = tree.map(parentNode => {
+            const isChild = node => node.parentId == parentNode.id
+            parentNode.children = toTree(categories, categories.filter(isChild))
+            return parentNode
+        })
+        return tree
+    }
+    
+    const getTree = (req, res) => {
+        app.db('categories')
+            .then(categories => res.json(toTree(withPath(categories))))
+            .catch(err => res.status(500).send(err))
+
+    }
+
+    return { save, remove, get, getById, getTree }
 }

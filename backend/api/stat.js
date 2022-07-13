@@ -10,7 +10,7 @@ module.exports = app => {
         Stat.findOne(
             {},
             {},
-            { sort: { 'createAt': -1 } }
+            { sort: { 'createdAt': -1 } }
         ).then(stat => {
             const defaultStats = {
                 users: 0,

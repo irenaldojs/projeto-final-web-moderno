@@ -77,7 +77,7 @@ module.exports = app => {
         const ids = categories.rows.map(c => c.id)
 
         app.db({a: 'articles', u: 'users'})
-            .select('a.id', 'a.name', 'a.description', 'a.imageUrl', {author: 'u.name'})
+            .select('a.id', 'a.name', 'a.description', 'a.imageUrl', { author: 'u.name'})
             .limit(limit).offset(page * limit - limit)
             .whereRaw('?? = ??', ['u.id', 'a.userId'])
             .whereIn('categoryId', ids)

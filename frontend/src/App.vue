@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<HeaderVue/>
+		<HeaderVue title="Cod3r - Base de Conhecimento" :hideToggle="false"/>
 		<MenuVue/>
 		<ContentVue/>
 		<FooterVue/>
@@ -45,6 +45,5 @@ export default {
             "header header"
             "menu content"
             "menu footer";
-
     }
 </style>

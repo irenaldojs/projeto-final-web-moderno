@@ -11,6 +11,7 @@
           :readonly="mode === 'remove'" placeholder="Informe o Nome do Artigo..." />
       </b-form-group>
       <b-form-group v-if="mode === 'save'" label="Imagem (URL):" label-for="article-imageUrl">
+        <b-form-input id="article-imageUrl" type="text" v-model="article.imageUrl" required
           :readonly="mode === 'remove'" placeholder="Informe a URL da Imagem..." />
       </b-form-group>
       <b-form-group v-if="mode === 'save'" label="Categoria:" label-for="article-categoryId">

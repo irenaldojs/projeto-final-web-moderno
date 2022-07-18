@@ -1,9 +1,9 @@
 <template>
-	<div id="app" :class="{'hide-menu': !isMenuVisible}">
+	<div id="app" :class="{'hide-menu': !isMenuVisible || !user}">
 		<HeaderVue title="Cod3r - Base de Conhecimento"
-			:hideToggle="false"
-			:hideUserDropdown="false"/>
-		<MenuVue/>
+			:hideToggle="!user"
+			:hideUserDropdown="!user"/>
+		<MenuVue v-if="user"/>
 		<ContentVue/>
 		<FooterVue/>
 	</div>
@@ -24,7 +24,7 @@ export default {
 		ContentVue,
 		FooterVue
 	},
-	computed: mapState(['isMenuVisible'])
+	computed: mapState(['isMenuVisible', 'user'])
 }
 </script>
 

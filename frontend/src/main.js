@@ -6,6 +6,7 @@ import './config/msgs'
 import App from './App'
 import store from './config/store'
 import router from './config/router'
+import liquorTree from 'liquor-tree'
 
 Vue.config.productionTip = false
 
@@ -13,6 +14,7 @@ require('axios').defaults.headers.common['Authorization'] = 'bearer eyJ0eXAiOiJK
 
 
 new Vue({
+  liquorTree,
   store,
   router,
   render: h => h(App)

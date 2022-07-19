@@ -1,9 +1,9 @@
 <template>
 	<div id="app" :class="{ 'hide-menu': !isMenuVisible || !user }">
 		<Header title="Cod3r - Base de Conhecimento" :hideToggle="!user" :hideUserDropdown="!user" />
-		<Menu v-if="user" />
-		<Loading v-if="validatingToken"/>
-		<Content v-else/>
+		<Menu />
+		<Loading v-if="validatingToken" />
+		<Content v-else />
 		<Footer />
 	</div>
 </template>
@@ -51,6 +51,9 @@ export default {
 
 			if (res.data) {
 				this.$store.commit('setUser', userData)
+				if (this.$mq === 'xs' || this.$mq === 'sm') {
+					this.$store.commit('toggleMenu', false)
+				}
 			} else {
 				localStorage.removeItem(userKey)
 				this.$router.push({ name: 'auth' })
